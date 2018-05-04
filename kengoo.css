@@ -1,0 +1,54 @@
+ body {
+	min-width:457px;
+	overflow-x:hidden;
+	margin: 0px;
+	background:#FAFAFA;
+}
+
+img {
+	margin:5px;
+	border:2px solid black;
+	vertical-align:middle;
+	width:75px;
+	height:75px;
+}
+
+table {
+	width: 100%;
+}
+
+td {
+	font-size: 10px;
+	font-family: 微軟正黑體, helvetica, arial;
+	color: gray;
+	text-align:center;
+	border-top:1px solid white;
+	border-bottom:1px solid #E1E1E1;
+	padding-top:3px;	
+	padding-bottom:3px;
+}
+
+tr#header{
+	font-weight: bold;
+}
+
+td#now {
+	color: black;
+	font-weight: bold;
+}
+
+td#name {
+	font-size:8px;
+}
+
+td#diff {
+	font-weight: bold;
+}
+ 
+td#diff.red {
+	color:red;
+}
+td#diff.green {
+	color:green;
+}
+ 

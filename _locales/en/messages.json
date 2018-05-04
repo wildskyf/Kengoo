@@ -1,0 +1,106 @@
+{
+	"extName": {
+		"message": "KenGoo",
+		"description": "Watch Taiwan Stocks with the most convenienct way"
+	},
+	"extDesc": {
+		"message": "Watch Taiwan Stocks with the most convenienct way",
+		"description": ""
+	},
+	"Name": {
+		"message": "Name",
+		"description": ""
+	},
+	"Time": {
+		"message": "Time",
+		"description": ""
+	},
+	"Last_Price": {
+		"message": "Last Price",
+		"description": ""
+	},
+	"Buy": {
+		"message": "Buy",
+		"description": ""
+	},
+	"Sell": {
+		"message": "Sell",
+		"description": ""
+	},
+	"Change": {
+		"message": "Change",
+		"description": ""
+	},
+	"Volume": {
+		"message": "Volume",
+		"description": ""
+	},
+	"Last_Day": {
+		"message": "Last Day",
+		"description": ""
+	},
+	"Open": {
+		"message": "Open",
+		"description": ""
+	},
+	"High": {
+		"message": "High",
+		"description": ""
+	},
+	"Low": {
+		"message": "Low",
+		"description": ""
+	},
+	"Price_Remind": {
+		"message": "Price Reminder",
+		"description": ""
+	},
+	"Volume_Remind": {
+		"message": "Volume Reminder",
+		"description": ""
+	},
+	"Delete": {
+		"message": "Delete",
+		"description": ""
+	},
+	"LowerThan":{
+		"message": "Lower than",
+		"description": ""
+	},
+	"LargerThan":{
+		"message": "Higher than",
+		"description": ""
+	},
+	"Error_AddStockUpperBound":{
+		"message": "You've reached the 7 stocks upper bound.",
+		"description": ""
+	},
+	"PriceVolume_Remind":{
+		"message": "Price/Volume Reminder",
+		"description": ""
+	},
+	"Message_Price_Lower_Than":{
+		"message": "Price has been lower than",
+		"description": ""
+	},
+	"Message_Price_Higher_Than":{
+		"message": "Price has been higher than",
+		"description": ""
+	},
+	"Message_Volume_Higher_Than":{
+		"message": "Volume has exceeded",
+		"description": ""
+	},
+	"Message_Volume_Lower_Than":{
+		"message": "Volume has been lower than",
+		"description": ""
+	},
+	"Symbol":{
+		"message": "Symbol",
+		"description": ""
+	},
+	"Add":{
+		"message": "Add",
+		"description": ""
+	}
+}

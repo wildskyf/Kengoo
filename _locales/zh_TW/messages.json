@@ -1,0 +1,106 @@
+{
+	"extName": {
+		"message": "看股",
+		"description": "提供一個快速觀測台灣個股的Chrome擴充。"
+	},
+	"extDesc": {
+		"message": "提供一個快速觀測台灣個股的Chrome擴充。",
+		"description": ""
+	},
+	"Name": {
+		"message": "個股",
+		"description": ""
+	},
+	"Time": {
+		"message": "時間",
+		"description": ""
+	},
+	"Last_Price": {
+		"message": "成交",
+		"description": ""
+	},
+	"Buy": {
+		"message": "買進",
+		"description": ""
+	},
+	"Sell": {
+		"message": "賣出",
+		"description": ""
+	},
+	"Change": {
+		"message": "漲跌",
+		"description": ""
+	},
+	"Volume": {
+		"message": "量",
+		"description": ""
+	},
+	"Last_Day": {
+		"message": "昨收",
+		"description": ""
+	},
+	"Open": {
+		"message": "開盤",
+		"description": ""
+	},
+	"High": {
+		"message": "最高",
+		"description": ""
+	},
+	"Low": {
+		"message": "最低",
+		"description": ""
+	},
+	"Price_Remind": {
+		"message": "價到提醒",
+		"description": ""
+	},
+	"Volume_Remind": {
+		"message": "量到提醒",
+		"description": ""
+	},
+	"Delete": {
+		"message": "刪除",
+		"description": ""
+	},
+	"LowerThan":{
+		"message": "低於",
+		"description": ""
+	},
+	"LargerThan":{
+		"message": "高於",
+		"description": ""
+	},
+	"Error_AddStockUpperBound":{
+		"message": "最多只能新增七筆資料！",
+		"description": ""
+	},
+	"PriceVolume_Remind":{
+		"message": "到價/量通知",
+		"description": ""
+	},
+	"Message_Price_Lower_Than":{
+		"message": "價格已經低於",
+		"description": ""
+	},
+	"Message_Price_Higher_Than":{
+		"message": "價格已經高於",
+		"description": ""
+	},
+	"Message_Volume_Higher_Than":{
+		"message": "成交量已經超過",
+		"description": ""
+	},
+	"Message_Volume_Lower_Than":{
+		"message": "成交量已經低於",
+		"description": ""
+	},
+	"Symbol":{
+		"message": "股票代碼",
+		"description": ""
+	},
+	"Add":{
+		"message": "新增",
+		"description": ""
+	}
+}
