@@ -10,23 +10,41 @@ KL.KENGOO.OPTION = {};
 
 var Utility = {
 	config: {
-		loadSetting: function(){
-			if (!localStorage['config']) {
-				localStorage['config'] = '{"2330":{"name":"台積電","notify":{"volume":0,"price":0}},"2498":{"name":"宏達電","notify":{}}}';
-				//return {};
+		loadSetting: async function(){
+		  var { config } = await browser.storage.sync.get('config');
+
+			if (!config) {
+			  var config = JSON.stringify({
+          "2330": {
+            "name": "台積電",
+            "notify": { "volume":0, "price":0 }
+          },
+          "2498": {
+            "name":"宏達電",
+            "notify":{}
+          }
+        });
+        await browser.storage.sync.set({config});
+
+        return JSON.parse(config);
 			}
-			return JSON.parse(localStorage['config']);
+      else {
+        return JSON.parse(config);
+      }
+
 		},
 		saveSetting: function(setting){
-			localStorage['config'] = JSON.stringify(setting);
+		  browser.storage.sync.set({
+        config: JSON.stringify(setting)
+		  });
 		},
-		setReminder: function(stkid, type, operand, value){
-			var c = Utility.config.loadSetting();
+		setReminder: async function(stkid, type, operand, value){
+			var c = await Utility.config.loadSetting();
 			c[stkid]['notify'][type] = operand * value;
 			Utility.config.saveSetting(c);
 		},
-		getList: function(){
-			var currentConfig = Utility.config.loadSetting();
+		getList: async function(){
+			var currentConfig = await Utility.config.loadSetting();
 			var clist = [];
 			$.each(currentConfig, function(key, value){
 				clist.push(key);
@@ -172,7 +190,7 @@ KL.KENGOO.POPUP.StockList = function(renderTo) {
 
 		// set news as title for tooltip
 		var news = "";
-		for (x in record.news) {
+		for (var x in record.news) {
 			news += record.news[x].text + "\n";
 		}
 		tr.attr('title', news);
@@ -182,7 +200,8 @@ KL.KENGOO.POPUP.StockList = function(renderTo) {
 		tr.cells['diff'].removeClass('green');
 		if (parseFloat(record.quotes[1]) >= parseFloat(record.quotes[6])){
 			tr.cells['diff'].addClass('red');
-		}else{
+		}
+		else{
 			tr.cells['diff'].addClass('green');
 		}
 
@@ -191,7 +210,7 @@ KL.KENGOO.POPUP.StockList = function(renderTo) {
 		}
 	}
 
-	this.renderList = function(){
+	this.renderList = async function(){
 		var bkg = chrome.extension.getBackgroundPage();
 		// console.log(bkg);
 		// console.log(bkg._background);
@@ -202,16 +221,17 @@ KL.KENGOO.POPUP.StockList = function(renderTo) {
 			}
 			window.stockPanel.addStock(bkg.parser.stocks[v]);
 		});
+
 		Utility.chrome.updateTooltip(bkg.parser);*/
 
 		if (!window.parser){
 			return;
 		}
-    window.parser.config.list.forEach((v,i) => {
+    (await window.parser.config.list).forEach(async (v,i) => {
       if (!window.parser.stocks[v]) {
         return;
       }
-      window.stockPanel.addStock(window.parser.stocks[v]);
+      await window.stockPanel.addStock(window.parser.stocks[v]);
     })
 
 		Utility.chrome.updateTooltip(window.parser);
@@ -255,8 +275,8 @@ KL.KENGOO.OPTION.StockConfigList = function(renderTo){
 		Utility.config.setReminder(id, type, (a == 'lower')? -1 : 1, b);
 	}
 
-	this.createNotifyControl = function(cell, type, record) {
-		var co = Utility.config.loadSetting();
+	this.createNotifyControl = async function(cell, type, record) {
+		var co = await Utility.config.loadSetting();
 		cell.operator = $('<select id="'+type+'_'+record.id+'">');
 		cell.append(cell.operator);
 		cell.operator.append($('<option value="lower">').text(chrome.i18n.getMessage('LowerThan')));
@@ -296,7 +316,7 @@ KL.KENGOO.OPTION.StockConfigList = function(renderTo){
 		});
 	}
 
-	this.addStock = function(record) {
+	this.addStock = async function(record) {
 		var tr = null;
 		var newRow = false;
 		if (this.rows[record.id]) {
@@ -322,17 +342,18 @@ KL.KENGOO.OPTION.StockConfigList = function(renderTo){
 							value: chrome.i18n.getMessage('Delete')
 						}], newRow);
 
-		this.createNotifyControl(tr.cells['volume'], 'volume', record);
-		this.createNotifyControl(tr.cells['price'], 'price', record);
+		await this.createNotifyControl(tr.cells['volume'], 'volume', record);
+		await this.createNotifyControl(tr.cells['price'], 'price', record);
 
 		// delete record handler
 		var This = this;
 		tr.cells['delete'].bind('click', function(){
-			var currentConfig = Utility.config.loadSetting();
-			delete currentConfig[record.id];
-			Utility.config.saveSetting(currentConfig);
-			delete This.rows[record.id];
-			tr.remove();
+      Utility.config.loadSetting().then( currentConfig => {
+        delete currentConfig[record.id];
+        Utility.config.saveSetting(currentConfig);
+        delete This.rows[record.id];
+        tr.remove();
+      })
 		});
 
 		if (newRow) {
@@ -350,8 +371,8 @@ KL.KENGOO.OPTION.StockConfigList = function(renderTo){
 		});
 	}
 
-	this.addStockToStorage = function() {
-		var config = Utility.config.loadSetting();
+	this.addStockToStorage = async function() {
+		var config = await Utility.config.loadSetting();
 
 		var count = 0;
 		for (x in config) {
@@ -414,8 +435,8 @@ KL.KENGOO.BACKGROUND.NotifyChecker = function(){
 		This.checkVolume(window.parser);
 	}
 
-	this.checkPrice = function(parser) {
-		var setting = Utility.config.loadSetting();
+	this.checkPrice = async function(parser) {
+		var setting = await Utility.config.loadSetting();
 		var msg = "";
 		for (var key in setting) {
 			if (!setting[key].notify.price) {
@@ -444,8 +465,8 @@ KL.KENGOO.BACKGROUND.NotifyChecker = function(){
 		return msg;
 	}
 
-	this.checkVolume = function(parser) {
-		var setting = Utility.config.loadSetting();
+	this.checkVolume = async function(parser) {
+		var setting = await Utility.config.loadSetting();
 		var msg = "";
 		for (key in setting) {
 			if (!setting[key].notify.price) {
@@ -472,12 +493,12 @@ KL.KENGOO.BACKGROUND.NotifyChecker = function(){
 	this.initTimer();
 }
 
-KL.KENGOO.OPTION.init = function() {
+KL.KENGOO.OPTION.init = async function() {
 	$("div[id=logo]").html(chrome.i18n.getMessage("extName"));
 	window.parser = new DataParser({});
 	// create option page UI widget
 	window._stockConfig = new KL.KENGOO.OPTION.StockConfigList($("div[id=description]"));
-	var currentConfig = Utility.config.loadSetting();
+	var currentConfig = await Utility.config.loadSetting();
 	window._stockConfig.showStocks(currentConfig);
 	window._inputPanel = new KL.KENGOO.OPTION.InputPanel();
 }
@@ -498,21 +519,21 @@ KL.KENGOO.BACKGROUND.init = function() {
 	window.notifyChecker = new KL.KENGOO.BACKGROUND.NotifyChecker();
 }
 
-KL.KENGOO.POPUP.init = function() {
+KL.KENGOO.POPUP.init = async function() {
 	window.stockPanel = new KL.KENGOO.POPUP.StockList($('body'));
-	window.stockPanel.renderList();
+	await window.stockPanel.renderList();
 	var config = {
-			list: Utility.config.getList(),
+			list: await Utility.config.getList(),
 			interval:  0,
-			callback: function(state) {
-				window.stockPanel.renderList();
+			callback: async function(state) {
+				await window.stockPanel.renderList();
 				Utility.chrome.updateBadge(window.parser.weight);
-				return Utility.config.getList();
+				return await Utility.config.getList();
 			}
 		};
 
 	window.parser = new DataParser(config);
-	window.stockPanel.renderList();
+	await window.stockPanel.renderList();
 	window.parser.begin();
 }
 

@@ -116,7 +116,7 @@ function DataParser(config){
 	    lis.forEach(li => {
         var a = li.querySelector('a');
         var meta = li.querySelector("span");
-        news_item = {
+        var news_item = {
           'href': a.href,
           'text': a.textContent,
           'source': meta.textContent

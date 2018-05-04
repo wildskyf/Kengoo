@@ -1,6 +1,13 @@
 {
+  "applications": {
+    "gecko": {
+      "id": "kengoo@tw",
+      "strict_min_version": "54.0"
+    }
+  },
+
   "name": "__MSG_extName__",
-  "version": "2.0.1.1",
+  "version": "2.0.1.2",
   "manifest_version": 2,
   "description": "__MSG_extDesc__",
   "background": {
@@ -18,11 +25,13 @@
   },
   "default_locale": "en",
   "browser_action": {
+    "browser_style": true,
     "default_popup": "popup.html",
 	  "default_icon": "images/icon48.png"
   },
   "permissions": [
     "*://tw.stock.yahoo.com/*",
+    "storage",
 	  "notifications"
   ],
   "icons": {
@@ -30,4 +39,5 @@
 	"48": "images/icon48.png",
     "16":"images/icon16.png"
   }
+
 }
