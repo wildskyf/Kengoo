@@ -96,7 +96,7 @@ function DataParser(config){
 
       const the_tr_selector = 'table:nth-child(10) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2)';
 	    var stock = {};
-	    var stkid = parseInt(stkname);
+	    var stkid = /^[0-9]*/.exec(stkname).pop();
       stkname = stkname.replace(/[0-9]/g, '');
 	    var quotes = [];
 	    var quoteCells = data.querySelector(the_tr_selector).querySelectorAll('td')
