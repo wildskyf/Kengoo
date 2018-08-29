@@ -14,8 +14,7 @@
     "scripts": [
       "jquery-3.3.1.min.js",
       "parser.js",
-      "kengoo.js",
-      "background.js"
+      "kengoo.js"
     ]
   },
   "options_ui": {
