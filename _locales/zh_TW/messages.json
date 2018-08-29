@@ -1,10 +1,10 @@
 {
 	"extName": {
 		"message": "看股",
-		"description": "提供一個快速觀測台灣個股的Chrome擴充。"
+		"description": "提供一個快速觀測台灣個股的 Firefox Add-on。"
 	},
 	"extDesc": {
-		"message": "提供一個快速觀測台灣個股的Chrome擴充。",
+		"message": "提供一個快速觀測台灣個股的 Firefox Add-on。",
 		"description": ""
 	},
 	"Name": {
